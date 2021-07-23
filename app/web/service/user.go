@@ -6,7 +6,7 @@ package service
  * @Author: shahao
  * @Date: 2021-04-07 09:20:20
  * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 15:20:02
+ * @LastEditTime: 2021-07-23 17:21:16
  */
 
 import (
@@ -17,7 +17,6 @@ import (
 	"ginServer/utils/jwt"
 	"ginServer/utils/language"
 	"ginServer/utils/log"
-	"regexp"
 	"time"
 
 	jwt2 "github.com/dgrijalva/jwt-go"
@@ -41,7 +40,7 @@ func (svr *userService) Login(req *define.UserLoginApiReq) (data interface{}, er
 
 	if req.UserName == "" {
 		err = NewServiceError(language.USER_NAME_EMPTY)
-		return 
+		return
 	}
 	if req.Password == "" {
 		err = NewServiceError(language.USER_PASS_EMPTY)
@@ -135,23 +134,6 @@ func (svr *userService) User(context *gin.Context) (user define.UserInfo) {
 	u, isOK := context.Get("user")
 	if isOK {
 		user = u.(define.UserInfo)
-	}
-	return
-}
-
-func (svr *userService) checkIpAddress(ipAddress string) (err IServiceError) {
-	if ipAddress == "" {
-		err = NewServiceError(language.SERVER_IP_ADDRESS_EMPTY)
-		return
-	}
-	ok, _ := regexp.MatchString("((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}", ipAddress)
-	if !ok {
-		err = NewServiceError(language.SERVER_IP_ADDRESS_ERROR, ipAddress)
-		return
-	}
-	if !function.IsPing(ipAddress) {
-		err = NewServiceError(language.SERVER_IP_ADDRESS_PING_ERROR, ipAddress)
-		return
 	}
 	return
 }

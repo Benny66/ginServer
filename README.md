@@ -1,11 +1,4 @@
-<!--
- * @Descripttion: 
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-07-23 14:57:19
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 16:30:50
--->
+
 # 基于go-gin框架的web服务框架
 [项目框架结构](./public/image/ginServerPath.png)
 ## app 
