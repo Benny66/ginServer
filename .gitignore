@@ -1,0 +1,10 @@
+
+vendor/
+audioMatrix
+.idea
+audioMatrix.exe
+go.sum
+db/
+runtime/logs/*
+public/web_doc/*
+public/export/*
