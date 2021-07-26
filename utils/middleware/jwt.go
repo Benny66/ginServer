@@ -6,7 +6,7 @@ package middleware
  * @Author: shahao
  * @Date: 2021-04-07 09:20:20
  * @LastEditors: shahao
- * @LastEditTime: 2021-05-11 17:48:00
+ * @LastEditTime: 2021-07-26 17:20:29
  */
 
 import (
@@ -35,21 +35,11 @@ func JWTMiddleware() gin.HandlerFunc {
 			format.NewResponseJson(context).Error(language.TOKEN_INVALID)
 			return
 		}
-		// fmt.Println(claims["user"])
 
 		userInfo := define.UserInfo{
 			UserId:   uint(claims["user_id"].(float64)),
 			UserName: claims["username"].(string),
 		}
-		// user, err := dao.UserDao.RelatePermission(1).FindOne(uint(claims["user_id"].(float64)))
-		// if err != nil {
-		// 	format.NewResponseJson(context).Error(language.TOKEN_INVALID)
-		// 	return
-		// }
-		// if user.IsDisabled == 1 {
-		// 	format.NewResponseJson(context).Error(language.LOGIN_USER_IS_DISABLED)
-		// 	return
-		// }
 		context.Set("user", userInfo)
 		context.Set("token", token)
 		context.Next()
