@@ -193,7 +193,7 @@ type ResultData struct {
 
 /*
 * description: 各端推送数据处理
-* author: jiangjm
+* author: shahao
 * created on: 2021/4/8 11.03
 * param data: 发送的数据
 * param isBroadCast: 是否广播（true-是,false-否）
@@ -223,7 +223,7 @@ func (manager *Manager) Success(ActionCode string, data interface{}, isBroadCast
 
 /*
 * description: 各端推送数据处理
-* author: jiangjm
+* author: shahao
 * created on: 2021/4/8 11.03
 * param data: 发送的数据
 * param isBroadCast: 是否广播（true-是,false-否）

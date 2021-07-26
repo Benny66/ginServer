@@ -2,6 +2,7 @@
 vendor/
 audioMatrix
 .idea
+.DS_Store
 audioMatrix.exe
 go.sum
 db/

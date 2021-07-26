@@ -66,7 +66,7 @@ func APILog(msg string, params ...interface{}) {
 
 /*
 * description: ws接口日志记录器
-* author: jiangjm
+* author: shahao
 * created on: 2021-04-08 上午11:20
 * param param_1:
 * param param_2:

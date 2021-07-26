@@ -1,5 +1,14 @@
+<!--
+ * @Descripttion: 
+ * @version: v1.0.0
+ * @Author: shahao
+ * @Date: 2021-07-23 14:57:19
+ * @LastEditors: shahao
+ * @LastEditTime: 2021-07-26 11:35:42
+-->
 
 # 基于go-gin框架的web服务框架
+项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
 [项目框架结构](./public/image/ginServerPath.png)
 ## app 
 项目工程主要代码文件夹目录，包括dao数据层、model模型层、service逻辑层；

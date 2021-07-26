@@ -6,11 +6,12 @@ package routers
  * @Author: shahao
  * @Date: 2021-04-14 09:56:53
  * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 16:19:18
+ * @LastEditTime: 2021-07-26 11:43:58
  */
 
 import (
 	"ginServer/app/web"
+	"ginServer/app/web/api"
 	"ginServer/config"
 	"ginServer/utils/format"
 	"ginServer/utils/function"
@@ -48,8 +49,8 @@ func (router *router) Init() *gin.Engine {
 	r.Use(middleware.LoggerMiddleware())
 	r.Use(middleware.Recover())
 	r.Use(middleware.CrossMiddleware())
-
 	go websocket.WebsocketManager.Start()
+	r.GET("/ws", api.WsClient)
 
 	r.NoRoute(routeNotFound)
 	r.NoMethod(methodNotFound)

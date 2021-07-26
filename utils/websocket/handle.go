@@ -6,7 +6,7 @@ package websocket
  * @Author: shahao
  * @Date: 2021-04-22 10:04:26
  * @LastEditors: shahao
- * @LastEditTime: 2021-04-27 13:55:47
+ * @LastEditTime: 2021-07-26 11:42:25
  */
 
 import (
@@ -19,7 +19,7 @@ type ControllerMapsType map[string]reflect.Value
 
 /**
  * Description: websocket服务器接收数据指令调用对应函数
- * author: 	jiangjm
+ * author: 	shahao
  * create on:	2021-04-16 18:05:21
  */
 func (manager *Manager) ServerCodeToFunc(data ReadData) {
@@ -34,7 +34,7 @@ func (manager *Manager) ServerCodeToFunc(data ReadData) {
 
 /**
  * Description: 下划线写法转为驼峰写法
- * author: 	jiangjm
+ * author: 	shahao
  * param: 	name
  * create on:	2021-04-17 08:56:25
  * return: 	string
@@ -47,7 +47,7 @@ func case2Camel(name string) string {
 
 /**
  * Description: 查询结构体中的方法
- * author: 	jiangjm
+ * author: 	shahao
  * create on:	2021-04-17 11:47:12
  * return: 	ControllerMapsType
  */
@@ -69,7 +69,7 @@ func (manager *Manager) serverReturnFunc() ControllerMapsType {
 
 /**
  * Description: websocket客户端接收数据指令调用对应函数
- * author: 	jiangjm
+ * author: 	shahao
  * create on:	2021-04-16 18:05:21
  */
 func (w *receiver) ClientCodeToFunc(data baseMsg) {
@@ -85,7 +85,7 @@ func (w *receiver) ClientCodeToFunc(data baseMsg) {
 
 /**
  * Description: 查询结构体中的方法
- * author: 	jiangjm
+ * author: 	shahao
  * create on:	2021-04-17 11:47:12
  * return: 	ControllerMapsType
  */

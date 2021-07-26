@@ -176,7 +176,7 @@ func (w *receiver) receiveMsg(cmd int, msg []byte) {
 
 /*
 * description: 发送数据到各端
-* author: jiangjm
+* author: shahao
 * created on: 2021/4/8 11.03
 * param key: business--表示发送给业务服务器，logic--表示逻辑服务器
 * param Actioncode: 发送指令
