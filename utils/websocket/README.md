@@ -46,7 +46,7 @@ r.GET("/ws", api.WsClient)
 
 客户端的连接地址则可以是：ws://127.0.0.1:8066/ws
 
- ![websocketRegister](https://github.com/Benny66/ginServer/tree/main/public/image/websocketRegister.png)
+ ![websocketRegister](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketRegister.png)
 
  开启程序服务器后，后台开启一个协程去监听处理发送给客户端的消息，包括：客户端注册、客户端注销、回复客户端消息
 
@@ -90,7 +90,7 @@ r.GET("/ws", api.WsClient)
 	}
  ```
 
-  ![websocketServer](https://github.com/Benny66/ginServer/tree/main/public/image/websocketServer.png)
+  ![websocketServer](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketServer.png)
 
 
   ### 单个websocket的client结构体
@@ -130,7 +130,7 @@ type BroadCastMessageData struct {
 
   以下是在建立连接后的正常数据通信（发送数据，回复数据）的流程图
 
-  ![websocketMessage](https://github.com/Benny66/ginServer/tree/main/public/image/websocketMessage.png)
+  ![websocketServer](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketMessage.png)
 
   在处理客户端消息的逻辑处理中，封装了一个handle文件，接收客户端请求指令的函数方法处理
 
