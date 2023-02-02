@@ -18,13 +18,17 @@ func init() {
 
 func NewConfig() *config {
 	c := &config{
-		IPAddress:       "0.0.0.0",
-		Port:            "8066",
-		DBHost:          "127.0.0.1",
-		DBPort:          "3306",
-		DBUser:          "root",
-		DBPass:          "BL@eleven.*#railBroadcast*#",
-		DBName:          "audioMatrix",
+		IPAddress: "0.0.0.0",
+		Port:      "8066",
+		DBHost:    "127.0.0.1",
+		DBPort:    "3306",
+		DBUser:    "root",
+		DBPass:    "BL@eleven.*#railBroadcast*#",
+		DBName:    "audioMatrix",
+
+		RedisAddr:     "127.0.0.1:6379",
+		RedisPassword: "",
+
 		WsURL:           "ws://127.0.0.1:6501",
 		UdpIpAddr:       function.GetLocalIp(),
 		UdpPort:         8806,
@@ -34,7 +38,7 @@ func NewConfig() *config {
 		IsUseWs:         true,
 		LogExpire:       180, //默认保存6个月
 		configPath:      function.GetAbsPath("config.ini"),
-		appName:         "Audio Matrix",
+		appName:         "GinServer",
 		appVersion:      "1.0",
 		databaseVersion: "202103101750",
 		language:        "zh-cn",
@@ -54,15 +58,21 @@ func NewConfig() *config {
 }
 
 type config struct {
-	IPAddress       string
-	Port            string
-	DBType          string
-	DBPath          string
-	DBHost          string
-	DBPort          string
-	DBUser          string
-	DBPass          string
-	DBName          string
+	IPAddress string
+	Port      string
+	//db
+	DBType string
+	DBPath string
+	DBHost string
+	DBPort string
+	DBUser string
+	DBPass string
+	DBName string
+
+	//redis
+	RedisAddr     string
+	RedisPassword string
+
 	WsURL           string
 	UdpIpAddr       string
 	UdpPort         int
@@ -129,6 +139,14 @@ func (c *config) loadGlobalConfig() {
 	if v := cfg.Section("config").Key("DBPath").String(); v != "" {
 		c.DBPath = v
 	}
+
+	if v := cfg.Section("config").Key("RedisAddr").String(); v != "" {
+		c.RedisAddr = v
+	}
+	if v := cfg.Section("config").Key("RedisPassword").String(); v != "" {
+		c.RedisPassword = v
+	}
+
 	if v := cfg.Section("config").Key("WsAddress").String(); v != "" {
 		c.WsURL = "ws://" + v + ":6501"
 	}
