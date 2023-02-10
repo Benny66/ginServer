@@ -52,6 +52,7 @@ func (router *webRouter) routerV1(group *gin.RouterGroup) {
 
 func (router *webRouter) routerNotNeedLogin(group *gin.RouterGroup) {
 	group.POST("/user/login", api.UserApi.Login)
+	group.POST("/redis/test", api.RedisApi.Test)
 }
 
 func (router *webRouter) routerUser(group *gin.RouterGroup) {
