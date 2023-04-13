@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"fmt"
-	"ginServer/utils/log"
+	"github.com/Benny66/ginServer/utils/log"
 	"os"
 	"time"
 

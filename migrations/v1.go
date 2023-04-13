@@ -11,7 +11,7 @@ package migrations
 
 import (
 	"database/sql"
-	"ginServer/utils/migrate"
+	"github.com/Benny66/ginServer/utils/migrate"
 )
 
 func (m *migration) migrateV1() []*migrate.Migration {

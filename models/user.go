@@ -1,8 +1,7 @@
-package dao
+package models
 
 import (
-	"ginServer/app/model"
-	"ginServer/utils/database"
+	database "github.com/Benny66/ginServer/db"
 
 	"gorm.io/gorm"
 )
@@ -23,7 +22,7 @@ type userDao struct {
 	gm *gorm.DB
 }
 
-func (dao *userDao) Create(tx *gorm.DB, data *model.User) (rowsAffected int64, err error) {
+func (dao *userDao) Create(tx *gorm.DB, data *UserModel) (rowsAffected int64, err error) {
 	db := tx.Create(data)
 	if err = db.Error; db.Error != nil {
 		return
@@ -33,7 +32,7 @@ func (dao *userDao) Create(tx *gorm.DB, data *model.User) (rowsAffected int64, e
 }
 
 func (dao *userDao) Update(tx *gorm.DB, id uint, data map[string]interface{}) (rowsAffected int64, err error) {
-	db := tx.Model(&model.User{}).Where("id = ?", id).Updates(data)
+	db := tx.Model(&UserModel{}).Where("id = ?", id).Updates(data)
 	if err = db.Error; db.Error != nil {
 		return
 	}
@@ -42,7 +41,7 @@ func (dao *userDao) Update(tx *gorm.DB, id uint, data map[string]interface{}) (r
 }
 
 func (dao *userDao) Delete(tx *gorm.DB, data []int) (rowsAffected int64, err error) {
-	db := tx.Where("id in (?)", data).Delete(&model.User{})
+	db := tx.Where("id in (?)", data).Delete(&UserModel{})
 	if err = db.Error; db.Error != nil {
 		return
 	}
@@ -50,7 +49,7 @@ func (dao *userDao) Delete(tx *gorm.DB, data []int) (rowsAffected int64, err err
 	return
 }
 
-func (dao *userDao) FindAll() (list []model.UserFind, err error) {
+func (dao *userDao) FindAll() (list []UserFindModel, err error) {
 	db := dao.gm.Find(&list)
 	if err = db.Error; db.Error != nil {
 		return
@@ -58,7 +57,7 @@ func (dao *userDao) FindAll() (list []model.UserFind, err error) {
 	return
 }
 
-func (dao *userDao) FindAllWhere(query interface{}, args ...interface{}) (list []model.UserFind, err error) {
+func (dao *userDao) FindAllWhere(query interface{}, args ...interface{}) (list []UserFindModel, err error) {
 	db := dao.gm.Where(query, args...).Find(&list)
 	if err = db.Error; db.Error != nil {
 		return
@@ -66,7 +65,7 @@ func (dao *userDao) FindAllWhere(query interface{}, args ...interface{}) (list [
 	return
 }
 
-func (dao *userDao) FindOneWhere(query interface{}, args ...interface{}) (record model.User, err error) {
+func (dao *userDao) FindOneWhere(query interface{}, args ...interface{}) (record UserModel, err error) {
 	db := dao.gm.Where(query, args...).First(&record)
 	if err = db.Error; db.Error != nil {
 		return
@@ -75,7 +74,7 @@ func (dao *userDao) FindOneWhere(query interface{}, args ...interface{}) (record
 }
 
 func (dao *userDao) FindCountWhere(query interface{}, args ...interface{}) (count int64, err error) {
-	db := dao.gm.Model(&model.User{}).Where(query, args...).Count(&count)
+	db := dao.gm.Model(&UserModel{}).Where(query, args...).Count(&count)
 	if err = db.Error; db.Error != nil {
 		return
 	}
@@ -83,14 +82,14 @@ func (dao *userDao) FindCountWhere(query interface{}, args ...interface{}) (coun
 }
 
 func (dao *userDao) FindCount() (count int64, err error) {
-	db := dao.gm.Model(&model.User{}).Count(&count)
+	db := dao.gm.Model(&UserModel{}).Count(&count)
 	if err = db.Error; db.Error != nil {
 		return
 	}
 	return
 }
 
-func (dao *userDao) Raw(sqlStr string, params ...interface{}) (list []model.UserFind, err error) {
+func (dao *userDao) Raw(sqlStr string, params ...interface{}) (list []UserFindModel, err error) {
 	db := dao.gm.Debug().Raw(sqlStr, params...).Find(&list)
 	if err = db.Error; db.Error != nil {
 		return
@@ -116,8 +115,8 @@ func (dao *userDao) WhereDisabled(isDisabled int) *userDao {
 	}
 }
 
-func (dao *userDao) Paginate(offset, limit int) (count int64, list []model.UserFind, err error) {
-	db := dao.gm.Model(&model.UserFind{}).Count(&count).Offset(offset).Limit(limit).Find(&list)
+func (dao *userDao) Paginate(offset, limit int) (count int64, list []UserFindModel, err error) {
+	db := dao.gm.Model(&UserFindModel{}).Count(&count).Offset(offset).Limit(limit).Find(&list)
 	if err = db.Error; db.Error != nil {
 		return
 	}

@@ -1,13 +1,4 @@
-package model
-
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-07 09:20:20
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 15:55:32
- */
+package models
 
 import (
 	"database/sql/driver"

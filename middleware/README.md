@@ -1,4 +1,4 @@
-项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
+项目地址：[https://github.com/Benny66/github.com/Benny66/ginServer](https://github.com/Benny66/github.com/Benny66/ginServer)
 
 此框架目前有跨域、jwt、日志、异常捕获等中间件，使用很简单，参考gin中间件使用方法。
 ```

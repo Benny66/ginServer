@@ -8,9 +8,9 @@ package format
 
 import (
 	"fmt"
-	"ginServer/config"
-	"ginServer/utils/language"
 	"net/http"
+
+	"github.com/Benny66/ginServer/utils/language"
 
 	"github.com/gin-gonic/gin"
 )
@@ -48,14 +48,9 @@ func (r *responseJson) SetHeader(key, value string) *responseJson {
  */
 func (r *responseJson) Success(data interface{}) {
 	r.context.JSON(http.StatusOK, ResultData{
-		Company:       "BL",
-		DeviceName:    config.Config.GetAppName(),
-		Result:        language.SUCCESS,
-		ResultMessage: language.Lang.Msg(language.SUCCESS),
-		Version:       config.Config.GetAppVersion(),
-		DBVersion:     config.Config.GetDatabaseVersion(),
-		Language:      config.Config.GetLanguage(),
-		Data:          data,
+		Code: language.SUCCESS,
+		Msg:  language.Lang.Msg(language.SUCCESS),
+		Data: data,
 	})
 }
 
@@ -69,14 +64,9 @@ func (r *responseJson) Success(data interface{}) {
  */
 func (r *responseJson) Error(errorCode int, params ...interface{}) {
 	result := ResultData{
-		Company:       "BL",
-		DeviceName:    config.Config.GetAppName(),
-		Result:        errorCode,
-		ResultMessage: language.Lang.Msg(errorCode, params...),
-		Version:       config.Config.GetAppVersion(),
-		DBVersion:     config.Config.GetDatabaseVersion(),
-		Language:      config.Config.GetLanguage(),
-		Data:          "",
+		Code: errorCode,
+		Msg:  language.Lang.Msg(errorCode, params...),
+		Data: "",
 	}
 	r.context.Abort()
 	r.context.JSON(http.StatusOK, result)
@@ -97,12 +87,7 @@ func (r *responseJson) Download(filename, path string) {
 }
 
 type ResultData struct {
-	Company       string      `json:"company"`
-	DeviceName    string      `json:"device_name"`
-	Result        int         `json:"result"`
-	ResultMessage string      `json:"result_message"`
-	Version       string      `json:"version"`
-	DBVersion     string      `json:"db_version"`
-	Language      string      `json:"language"`
-	Data          interface{} `json:"data"`
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
 }

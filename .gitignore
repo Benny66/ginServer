@@ -1,11 +1,7 @@
-
-vendor/
-audioMatrix
 .idea
-.DS_Store
-audioMatrix.exe
+*.DS_Store
 go.sum
-db/
 runtime/logs/*
 public/web_doc/*
 public/export/*
+.env

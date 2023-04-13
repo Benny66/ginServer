@@ -10,12 +10,13 @@ package migrations
  */
 
 import (
-	"ginServer/utils/function"
-	"ginServer/utils/migrate"
 	"database/sql"
 	"fmt"
-	"ginServer/utils/database"
 	"os"
+
+	database "github.com/Benny66/ginServer/db"
+	"github.com/Benny66/ginServer/utils/function"
+	"github.com/Benny66/ginServer/utils/migrate"
 )
 
 var Migration *migration
@@ -76,7 +77,7 @@ func (m *migration) deleteLockFile() error {
 	return os.Remove(m.lockFilePath)
 }
 
-//填充默认数据
+// 填充默认数据
 func (m *migration) migrateData() error {
 	// to do
 

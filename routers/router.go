@@ -10,20 +10,17 @@ package routers
  */
 
 import (
-	"ginServer/app/web"
-	"ginServer/app/web/api"
-	"ginServer/config"
-	"ginServer/utils/format"
-	"ginServer/utils/function"
-	"ginServer/utils/language"
-	"ginServer/utils/middleware"
-	"ginServer/utils/websocket"
 	"net/http"
 
-	"github.com/gin-contrib/pprof"
+	"github.com/Benny66/ginServer/api"
+	"github.com/Benny66/ginServer/config"
+	"github.com/Benny66/ginServer/middleware"
+	"github.com/Benny66/ginServer/utils/format"
+	"github.com/Benny66/ginServer/utils/function"
+	"github.com/Benny66/ginServer/utils/language"
+	"github.com/Benny66/ginServer/utils/websocket"
 
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"github.com/gin-contrib/pprof"
 
 	"github.com/gin-gonic/gin"
 )
@@ -44,7 +41,7 @@ func (router *router) Init() *gin.Engine {
 	r := gin.New()
 	gin.SetMode(config.Config.Mode)
 	if gin.IsDebugging() {
-		pprof.Register(r, "/debug")
+		pprof.Register(r, "/debug/pprof")
 	}
 	r.Use(middleware.LoggerMiddleware())
 	r.Use(middleware.Recover())
@@ -55,12 +52,11 @@ func (router *router) Init() *gin.Engine {
 	r.NoRoute(routeNotFound)
 	r.NoMethod(methodNotFound)
 	r.StaticFS("/public", http.Dir(function.GetAbsPath("public")))
-	if gin.IsDebugging() {
-		r.GET("/docs/web/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/web_doc/swagger.json")))
-		r.GET("/docs/client/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/client_doc/swagger.json")))
-	}
-
-	web.WebRouter.Init(r.Group("/web"))
+	// if gin.IsDebugging() {
+	// 	r.GET("/docs/web/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/web_doc/swagger.json")))
+	// 	r.GET("/docs/client/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/client_doc/swagger.json")))
+	// }
+	routerV1(r.Group("/api"))
 	return r
 }
 
@@ -70,5 +66,4 @@ func methodNotFound(context *gin.Context) {
 
 func routeNotFound(context *gin.Context) {
 	format.NewResponseJson(context).Error(language.METHOD_NOT_FOUND)
-	//context.HTML(http.StatusOK, "index.html", nil)
 }

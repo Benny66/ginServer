@@ -2,13 +2,13 @@ package api
 
 import (
 	"fmt"
-	"ginServer/utils/format"
-	"ginServer/utils/log"
-	mRedis "ginServer/utils/redis"
+
+	"github.com/Benny66/ginServer/utils/format"
+	"github.com/Benny66/ginServer/utils/log"
+	myRedis "github.com/Benny66/ginServer/utils/redis"
 
 	"github.com/gin-gonic/gin"
 )
-
 
 var RedisApi *redisApi
 
@@ -25,7 +25,7 @@ type redisApi struct {
 
 func (api *redisApi) Test(context *gin.Context) {
 	key := "redis_test"
-	result, err := mRedis.RRedisClient.Set(key, 1000, 0)
+	result, err := myRedis.Set(key, 1000, 0)
 	if err != nil {
 		format.NewResponseJson(context).Error(51001, err.Error())
 		return
@@ -33,7 +33,7 @@ func (api *redisApi) Test(context *gin.Context) {
 	if result {
 		log.SystemLog("redis set success")
 	}
-	value, err := mRedis.RRedisClient.Get(key)
+	value, err := myRedis.Get(key)
 	if err != nil {
 		format.NewResponseJson(context).Error(51001, err.Error())
 		return

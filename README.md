@@ -8,8 +8,8 @@
 -->
 
 # 基于go-gin框架的web服务框架
-项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
-![项目框架结构](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/ginServerPath.png)
+项目地址：[https://github.com/Benny66/github.com/Benny66/ginServer](https://github.com/Benny66/github.com/Benny66/ginServer)
+![项目框架结构](https://raw.githubusercontent.com/Benny66/github.com/Benny66/ginServer/main/public/image/github.com/Benny66/ginServerPath.png)
 ## app 
 项目工程主要代码文件夹目录，包括dao数据层、model模型层、service逻辑层；
 
@@ -89,3 +89,5 @@ runtime模块，保存日志logs、缓存cache等文件
 
 ## utils
 项目框架需要的工具包，包括：自我封装的库以及调用第三方封装的库
+
+## pprof
