@@ -10,14 +10,15 @@ package service
  */
 
 import (
-	"ginServer/app/dao"
-	"ginServer/app/web/define"
-	"ginServer/utils/database"
-	"ginServer/utils/function"
-	"ginServer/utils/jwt"
-	"ginServer/utils/language"
-	"ginServer/utils/log"
 	"time"
+
+	"github.com/Benny66/ginServer/schemas"
+	database "github.com/Benny66/ginServer/db"
+	"github.com/Benny66/ginServer/middleware"
+	"github.com/Benny66/ginServer/models"
+	"github.com/Benny66/ginServer/utils/function"
+	"github.com/Benny66/ginServer/utils/language"
+	"github.com/Benny66/ginServer/utils/log"
 
 	jwt2 "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -36,7 +37,7 @@ func NewUserService() *userService {
 type userService struct {
 }
 
-func (svr *userService) Login(req *define.UserLoginApiReq) (data interface{}, err IServiceError) {
+func (svr *userService) Login(req *schemas.UserLoginApiReq) (data interface{}, err IServiceError) {
 
 	if req.UserName == "" {
 		err = NewServiceError(language.USER_NAME_EMPTY)
@@ -48,7 +49,7 @@ func (svr *userService) Login(req *define.UserLoginApiReq) (data interface{}, er
 	}
 	//md5加盐
 	password := function.CreateMD5(req.Password + "audio2021")
-	userInfo, dbErr := dao.UserDao.FindOneWhere("username = ? and password = ?", req.UserName, password)
+	userInfo, dbErr := models.UserDao.FindOneWhere("username = ? and password = ?", req.UserName, password)
 	if dbErr != nil {
 		log.SystemLog(dbErr)
 		err = NewServiceError(language.USER_LOGIN_ERROR)
@@ -66,7 +67,7 @@ func (svr *userService) Login(req *define.UserLoginApiReq) (data interface{}, er
 		"typ":      "JWT",
 	}
 
-	data, tokenErr = jwt.CreateToken(claims)
+	data, tokenErr = middleware.CreateToken(claims)
 	if tokenErr != nil {
 		log.SystemLog(tokenErr)
 		err = NewServiceError(language.USER_TOKEN_CREATE_ERROR)
@@ -74,7 +75,7 @@ func (svr *userService) Login(req *define.UserLoginApiReq) (data interface{}, er
 	}
 	return
 }
-func (svr *userService) Refresh(req define.UserInfo) (data interface{}, err IServiceError) {
+func (svr *userService) Refresh(req schemas.UserInfo) (data interface{}, err IServiceError) {
 	var tokenErr error
 	claims := jwt2.MapClaims{
 		"user_id":  req.UserId,
@@ -87,7 +88,7 @@ func (svr *userService) Refresh(req define.UserInfo) (data interface{}, err ISer
 		"typ":      "JWT",
 	}
 
-	data, tokenErr = jwt.CreateToken(claims)
+	data, tokenErr = middleware.CreateToken(claims)
 	if tokenErr != nil {
 		log.SystemLog(tokenErr)
 		err = NewServiceError(language.USER_TOKEN_CREATE_ERROR)
@@ -96,7 +97,7 @@ func (svr *userService) Refresh(req define.UserInfo) (data interface{}, err ISer
 	return
 }
 
-func (svr *userService) UpdatePassword(req *define.UserUpdatePasswordApiReq, user define.UserInfo) (data interface{}, err IServiceError) {
+func (svr *userService) UpdatePassword(req *schemas.UserUpdatePasswordApiReq, user schemas.UserInfo) (data interface{}, err IServiceError) {
 	if req.OldPassword == "" || req.NewPassword == "" || req.ConfirmPassword == "" {
 		err = NewServiceError(language.INVALID_PARMAS)
 		return
@@ -108,7 +109,7 @@ func (svr *userService) UpdatePassword(req *define.UserUpdatePasswordApiReq, use
 	//md5加盐
 	password := function.CreateMD5(req.OldPassword + "audio2021")
 
-	userInfo, dbErr := dao.UserDao.FindOneWhere("id = ?", user.UserId)
+	userInfo, dbErr := models.UserDao.FindOneWhere("id = ?", user.UserId)
 	if dbErr != nil {
 		log.SystemLog(dbErr)
 		err = NewServiceError(language.USER_NOT_EXISTS)
@@ -119,7 +120,7 @@ func (svr *userService) UpdatePassword(req *define.UserUpdatePasswordApiReq, use
 		return
 	}
 	password = function.CreateMD5(req.NewPassword + "audio2021")
-	data, dbErr = dao.UserDao.Update(database.Orm.DB(), userInfo.ID, map[string]interface{}{
+	data, dbErr = models.UserDao.Update(database.Orm.DB(), userInfo.ID, map[string]interface{}{
 		"password": password,
 	})
 	if dbErr != nil {
@@ -130,10 +131,10 @@ func (svr *userService) UpdatePassword(req *define.UserUpdatePasswordApiReq, use
 	return
 }
 
-func (svr *userService) User(context *gin.Context) (user define.UserInfo) {
+func (svr *userService) User(context *gin.Context) (user schemas.UserInfo) {
 	u, isOK := context.Get("user")
 	if isOK {
-		user = u.(define.UserInfo)
+		user = u.(schemas.UserInfo)
 	}
 	return
 }

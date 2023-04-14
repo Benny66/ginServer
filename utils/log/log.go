@@ -3,13 +3,14 @@ package log
 import (
 	"encoding/json"
 	"fmt"
-	"ginServer/config"
-	"ginServer/utils/function"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
 	"time"
+
+	"github.com/Benny66/ginServer/config"
+	"github.com/Benny66/ginServer/utils/function"
 )
 
 const LOG_LEVEL_DEBUG = "debug"
@@ -23,11 +24,11 @@ var (
 )
 
 func init() {
-	SystemLogger = NewFileLogger(function.GetAbsPath(config.Config.GetSystemLogPath()), "system", config.Config.Mode, config.Config.LogExpire)
-	SQLLogger = NewFileLogger(function.GetAbsPath(config.Config.GetSqlLogPath()), "sql", config.Config.Mode, config.Config.LogExpire)
-	APILogger = NewFileLogger(function.GetAbsPath(config.Config.GetApiLogPath()), "api", config.Config.Mode, config.Config.LogExpire)
-	WSLogger = NewFileLogger(function.GetAbsPath(config.Config.GetWsLogPath()), "ws", config.Config.Mode, config.Config.LogExpire)
-	UDPLogger = NewFileLogger(function.GetAbsPath(config.Config.GetUDPLogPath()), "udp", config.Config.Mode, config.Config.LogExpire)
+	SystemLogger = NewFileLogger(function.GetAbsPath("runtime/logs/system/"), "system", config.Config.Mode, config.Config.LogExpire)
+	SQLLogger = NewFileLogger(function.GetAbsPath("runtime/logs/sql/"), "sql", config.Config.Mode, config.Config.LogExpire)
+	APILogger = NewFileLogger(function.GetAbsPath("runtime/logs/api/"), "api", config.Config.Mode, config.Config.LogExpire)
+	WSLogger = NewFileLogger(function.GetAbsPath("runtime/logs/wx/"), "ws", config.Config.Mode, config.Config.LogExpire)
+	UDPLogger = NewFileLogger(function.GetAbsPath("runtime/logs/udp/"), "udp", config.Config.Mode, config.Config.LogExpire)
 }
 
 /*

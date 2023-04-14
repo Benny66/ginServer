@@ -11,9 +11,9 @@ package api
 
 import (
 	"fmt"
-	"ginServer/utils/format"
-	"ginServer/utils/log"
-	ws "ginServer/utils/websocket"
+	"github.com/Benny66/ginServer/utils/format"
+	"github.com/Benny66/ginServer/utils/log"
+	ws "github.com/Benny66/ginServer/utils/websocket"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

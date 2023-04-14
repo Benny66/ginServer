@@ -1,5 +1,5 @@
 # 基于go-gin框架的web服务框架之websocket
-项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
+项目地址：[https://github.com/Benny66/github.com/Benny66/ginServer](https://github.com/Benny66/github.com/Benny66/ginServer)
 
 # websocket服务
 使用webcocket通信相比于http，它可不像http那样是无状态的请求，http每一次数据的查询、处理都需要重新发起请求，进行三个握手，四次挥手，而websocket只需要进行一次tcp连接，就可以维持长连接不断的进行发送和回复消息的请求，并且支持服务端向客户端的实时消息推送，这一点是http无法做到的。
@@ -46,7 +46,7 @@ r.GET("/ws", api.WsClient)
 
 客户端的连接地址则可以是：ws://127.0.0.1:8066/ws
 
- ![websocketRegister](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketRegister.png)
+ ![websocketRegister](https://raw.githubusercontent.com/Benny66/github.com/Benny66/ginServer/main/public/image/websocketRegister.png)
 
  开启程序服务器后，后台开启一个协程去监听处理发送给客户端的消息，包括：客户端注册、客户端注销、回复客户端消息
 
@@ -90,7 +90,7 @@ r.GET("/ws", api.WsClient)
 	}
  ```
 
-  ![websocketServer](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketServer.png)
+  ![websocketServer](https://raw.githubusercontent.com/Benny66/github.com/Benny66/ginServer/main/public/image/websocketServer.png)
 
 
   ### 单个websocket的client结构体
@@ -130,7 +130,7 @@ type BroadCastMessageData struct {
 
   以下是在建立连接后的正常数据通信（发送数据，回复数据）的流程图
 
-  ![websocketServer](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/websocketMessage.png)
+  ![websocketServer](https://raw.githubusercontent.com/Benny66/github.com/Benny66/ginServer/main/public/image/websocketMessage.png)
 
   在处理客户端消息的逻辑处理中，封装了一个handle文件，接收客户端请求指令的函数方法处理
 

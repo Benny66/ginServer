@@ -11,12 +11,14 @@ package database
 
 import (
 	"database/sql"
-	"ginServer/utils/function"
-	log2 "ginServer/utils/log"
+	"fmt"
 	"log"
 	"time"
 
-	"gorm.io/driver/sqlite"
+	"github.com/Benny66/ginServer/config"
+	log2 "github.com/Benny66/ginServer/utils/log"
+
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -42,13 +44,15 @@ func (db *orm) loadDBConfig() {
 	}
 
 	var err error
-	// dbPath := filepath.Join(filepath.Dir(strings.TrimRight(function.GetCurrentAbsPath(), string(os.PathSeparator))), config.Config.GetDBPath())
-	// log2.SystemLog("数据库文件路径" + dbPath)
-	// if !function.IsFileExists(dbPath) {
-	// 	log2.SystemLog("数据库文件路径不存在")
-	// 	return
-	// }
-	db.engine, err = gorm.Open(sqlite.Open(function.GetAbsPath("db/ginServer.db")), &gorm.Config{})
+	dbName := config.Config.DBName
+	dbUser := config.Config.DBUsername
+	dbPassword := config.Config.DBPassword
+	dbHost := config.Config.DBHost
+	dbPort := config.Config.DBPort
+	// Prefix := "m_"
+	db.engine, err = gorm.Open(mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		dbUser, dbPassword, dbHost, dbPort, dbName,
+	)), &gorm.Config{})
 	if err != nil {
 		log2.SystemLog(err)
 		log.Fatal("open database error: " + err.Error())

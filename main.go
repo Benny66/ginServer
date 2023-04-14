@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"ginServer/config"
-	_ "ginServer/migrations"
-	"ginServer/routers"
+	"github.com/Benny66/ginServer/config"
+	_ "github.com/Benny66/ginServer/migrations"
+	"github.com/Benny66/ginServer/routers"
 	"log"
 	"os"
 	"os/signal"
@@ -37,13 +37,13 @@ func main() {
 	}
 
 	if version {
-		fmt.Println(config.Config.GetAppVersion())
+		fmt.Println(config.Config.AppVersion)
 		return
 	}
 
 	svcConfig := &service.Config{
-		Name:        "ginServer",
-		DisplayName: "ginServer",
+		Name:        "github.com/Benny66/ginServer",
+		DisplayName: "github.com/Benny66/ginServer",
 		Description: "基于go-gin的web服务框架",
 	}
 

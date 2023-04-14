@@ -1,15 +1,6 @@
-package model
+package models
 
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-14 09:56:53
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 15:56:33
- */
-
-type User struct {
+type UserModel struct {
 	ID        uint      `gorm:"primaryKey;column:id" json:"id"`
 	UserName  string    `gorm:"column:username;unique;not null" json:"username"`
 	Password  string    `gorm:"column:password;not null" json:"password"`
@@ -17,12 +8,12 @@ type User struct {
 	UpdatedAt ModelTime `gorm:"column:updated_at" json:"updated_at"`
 }
 
-func (um User) TableName() string {
+func (um UserModel) TableName() string {
 	return "users"
 }
 
-//对外查询使用用户模型
-type UserFind struct {
-	User
+// 对外查询使用用户模型
+type UserFindModel struct {
+	UserModel
 	Password string `gorm:"column:password;not null" json:"-"`
 }

@@ -3,18 +3,18 @@ package websocket
 import (
 	"encoding/json"
 	"fmt"
-	"ginServer/config"
-	"ginServer/utils/function"
-	"ginServer/utils/language"
-	"ginServer/utils/log"
 	"sync"
+
+	"github.com/Benny66/ginServer/utils/function"
+	"github.com/Benny66/ginServer/utils/language"
+	"github.com/Benny66/ginServer/utils/log"
 
 	"github.com/gorilla/websocket"
 )
 
 // websocket 服务器：定义一个 websocket 服务器和客户端连接。
 
-//Client:单个websocket
+// Client:单个websocket
 type Client struct {
 	Id      string
 	Socket  *websocket.Conn
@@ -28,7 +28,7 @@ type BroadCastMessageData struct {
 	ClientIDs   []string
 }
 
-//Manager:所有websocket 信息
+// Manager:所有websocket 信息
 type Manager struct {
 	//client.id => Client
 	Group                map[string]*Client
@@ -47,7 +47,7 @@ var WebsocketManager = Manager{
 	clientCount:      0,
 }
 
-//启动websocket管理器
+// 启动websocket管理器
 func (manager *Manager) Start() {
 	log.WSLog("websocket 服务器启动")
 	for {
@@ -101,7 +101,7 @@ type ReadData struct {
 	ClientIDs   []string `json:"client_ids"`
 }
 
-//从websocket中直接读取数据
+// 从websocket中直接读取数据
 func (c *Client) Read() {
 	defer func() {
 		//客户端关闭
@@ -136,7 +136,7 @@ func (c *Client) Read() {
 	}
 }
 
-//写入数据到websocket中
+// 写入数据到websocket中
 func (c *Client) Write() {
 	defer func() {
 		//客户端关闭
@@ -169,26 +169,21 @@ func (c *Client) Write() {
 	}
 }
 
-//注册
+// 注册
 func (manager *Manager) RegisterClient(client *Client) {
 	manager.Register <- client
 }
 
-//注销
+// 注销
 func (manager *Manager) UnRegisterClient(client *Client) {
 	manager.UnRegister <- client
 }
 
 type ResultData struct {
-	Company       string      `json:"company"`
-	DeviceName    string      `json:"device_name"`
-	Result        int         `json:"result"`
-	ResultMessage string      `json:"result_message"`
-	Version       string      `json:"version"`
-	DBVersion     string      `json:"db_version"`
-	Language      string      `json:"language"`
-	Data          interface{} `json:"data"`
-	ActionCode    string      `json:"actioncode"`
+	Code       int         `json:"code"`
+	Msg        string      `json:"msg"`
+	Data       interface{} `json:"data"`
+	ActionCode string      `json:"actioncode"`
 }
 
 /*
@@ -202,15 +197,10 @@ type ResultData struct {
  */
 func (manager *Manager) Success(ActionCode string, data interface{}, isBroadCast bool, ClientIDs []string) {
 	var result = ResultData{
-		Company:       "BL",
-		DeviceName:    config.Config.GetAppName(),
-		Result:        language.SUCCESS,
-		ResultMessage: language.Lang.Msg(language.SUCCESS),
-		Version:       config.Config.GetAppVersion(),
-		DBVersion:     config.Config.GetDatabaseVersion(),
-		Language:      config.Config.GetLanguage(),
-		Data:          data,
-		ActionCode:    ActionCode,
+		Code:       language.SUCCESS,
+		Msg:        language.Lang.Msg(language.SUCCESS),
+		Data:       data,
+		ActionCode: ActionCode,
 	}
 	msg, err := json.Marshal(result)
 	if err != nil {
@@ -232,15 +222,10 @@ func (manager *Manager) Success(ActionCode string, data interface{}, isBroadCast
  */
 func (manager *Manager) Error(errorCode int, ActionCode string, param []interface{}, isBroadCast bool, ClientIDs []string) {
 	var result = ResultData{
-		Company:       "BL",
-		DeviceName:    config.Config.GetAppName(),
-		Result:        language.SUCCESS,
-		ResultMessage: language.Lang.Msg(errorCode, param...),
-		Version:       config.Config.GetAppVersion(),
-		DBVersion:     config.Config.GetDatabaseVersion(),
-		Language:      config.Config.GetLanguage(),
-		Data:          "",
-		ActionCode:    ActionCode,
+		Code:       language.SUCCESS,
+		Msg:        language.Lang.Msg(errorCode, param...),
+		Data:       "",
+		ActionCode: ActionCode,
 	}
 	msg, err := json.Marshal(result)
 	if err != nil {

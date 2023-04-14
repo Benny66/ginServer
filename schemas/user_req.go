@@ -1,13 +1,4 @@
-package define
-
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-07 09:20:20
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 15:19:53
- */
+package schemas
 
 type UserLoginApiReq struct {
 	UserName string `form:"username" json:"username"`

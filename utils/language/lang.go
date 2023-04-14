@@ -2,8 +2,9 @@ package language
 
 import (
 	"fmt"
-	"ginServer/config"
 	"log"
+
+	"github.com/Benny66/ginServer/config"
 )
 
 const (
@@ -21,7 +22,7 @@ func NewLang() *lang {
 	l := &lang{
 		lang: LANG_TYPE_CHINESE,
 	}
-	l.setLanguage(config.Config.GetLanguage())
+	l.setLanguage(config.Config.Language)
 	return l
 }
 

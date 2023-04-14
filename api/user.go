@@ -10,10 +10,10 @@ package api
  */
 
 import (
-	"ginServer/app/web/define"
-	"ginServer/app/web/service"
-	"ginServer/utils/format"
-	"ginServer/utils/language"
+	"github.com/Benny66/ginServer/schemas"
+	"github.com/Benny66/ginServer/service"
+	"github.com/Benny66/ginServer/utils/format"
+	"github.com/Benny66/ginServer/utils/language"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,7 +40,7 @@ type userApi struct {
 // @Success 200 {string} string {"company":"BL","device_name":"Audio Matrix","result":"0","result_message":"成功","version":"1.0", "db_version":"202103101750","language":"zh-cn","data":""}
 // @Router /v1/user/login [post]
 func (api *userApi) Login(context *gin.Context) {
-	var req define.UserLoginApiReq
+	var req schemas.UserLoginApiReq
 
 	if err := context.BindJSON(&req); err != nil {
 		format.NewResponseJson(context).Error(language.INVALID_PARMAS)
@@ -103,7 +103,7 @@ func (api *userApi) Logout(context *gin.Context) {
 // @Success 200 {string} string {"company":"BL","device_name":"Audio Matrix","result":"0","result_message":"成功","version":"1.0", "db_version":"202103101750","language":"zh-cn","data":""}
 // @Router /v1/user/update [put]
 func (api *userApi) UpdatePassword(context *gin.Context) {
-	var req define.UserUpdatePasswordApiReq
+	var req schemas.UserUpdatePasswordApiReq
 
 	if err := context.BindJSON(&req); err != nil {
 		format.NewResponseJson(context).Error(language.INVALID_PARMAS)

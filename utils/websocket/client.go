@@ -3,10 +3,10 @@ package websocket
 import (
 	"encoding/json"
 	"fmt"
-	"ginServer/config"
-	"ginServer/utils/log"
 	"sync"
 	"time"
+
+	"github.com/Benny66/ginServer/utils/log"
 
 	"github.com/gorilla/websocket"
 )
@@ -96,8 +96,7 @@ func (w *receiver) recoverCmd(v int) {
 }
 
 var clientManager = map[string]string{
-	"business": config.Config.BusinessAddr,
-	"logic":    config.Config.LogicAddr,
+	"business": "ws://127.0.0.1:8061",
 }
 
 func Start() {
@@ -159,7 +158,7 @@ func connServer(key, Addr string) {
 	}
 }
 
-//发送给固定客户端
+// 发送给固定客户端
 func (w *receiver) receiveMsg(cmd int, msg []byte) {
 	w.receiverMtx.RLock()
 	defer w.receiverMtx.RUnlock()

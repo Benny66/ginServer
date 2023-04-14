@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"fmt"
-	"ginServer/utils/format"
-	"ginServer/utils/language"
-	"ginServer/utils/log"
+	"github.com/Benny66/ginServer/utils/format"
+	"github.com/Benny66/ginServer/utils/language"
+	"github.com/Benny66/ginServer/utils/log"
 	"runtime/debug"
 
 	"github.com/gin-gonic/gin"
