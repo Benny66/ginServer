@@ -47,7 +47,7 @@ func (router *router) Init() *gin.Engine {
 	r.Use(middleware.Recover())
 	r.Use(middleware.CrossMiddleware())
 	go websocket.WebsocketManager.Start()
-	r.GET("/ws", api.WsClient)
+	r.GET("/ws", api.WsApi.WsClient)
 
 	r.NoRoute(routeNotFound)
 	r.NoMethod(methodNotFound)

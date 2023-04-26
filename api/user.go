@@ -18,19 +18,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var UserApi *userApi
-
-func init() {
-	UserApi = NewUserApi()
-}
-
-func NewUserApi() *userApi {
-	return &userApi{}
-}
-
-type userApi struct {
-}
-
 // @Summary 登录
 // @Description 登录
 // @Tags 用户

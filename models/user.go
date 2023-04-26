@@ -1,26 +1,8 @@
 package models
 
 import (
-	database "github.com/Benny66/ginServer/db"
-
 	"gorm.io/gorm"
 )
-
-var UserDao *userDao
-
-func init() {
-	UserDao = NewUserDao()
-}
-
-func NewUserDao() *userDao {
-	return &userDao{
-		gm: database.Orm.DB(),
-	}
-}
-
-type userDao struct {
-	gm *gorm.DB
-}
 
 func (dao *userDao) Create(tx *gorm.DB, data *UserModel) (rowsAffected int64, err error) {
 	db := tx.Create(data)

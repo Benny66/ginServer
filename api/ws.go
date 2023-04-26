@@ -11,10 +11,11 @@ package api
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/Benny66/ginServer/utils/format"
 	"github.com/Benny66/ginServer/utils/log"
 	ws "github.com/Benny66/ginServer/utils/websocket"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -22,7 +23,7 @@ import (
 )
 
 // 客户端连接
-func WsClient(context *gin.Context) {
+func (api *wsApi) WsClient(context *gin.Context) {
 	upGrande := websocket.Upgrader{
 		//设置允许跨域
 		CheckOrigin: func(r *http.Request) bool {

@@ -10,19 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var RedisApi *redisApi
-
-func init() {
-	RedisApi = NewRedisApi()
-}
-
-func NewRedisApi() *redisApi {
-	return &redisApi{}
-}
-
-type redisApi struct {
-}
-
 func (api *redisApi) Test(context *gin.Context) {
 	key := "redis_test"
 	result, err := myRedis.Set(key, 1000, 0)

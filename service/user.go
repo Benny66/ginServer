@@ -12,10 +12,10 @@ package service
 import (
 	"time"
 
-	"github.com/Benny66/ginServer/schemas"
 	database "github.com/Benny66/ginServer/db"
 	"github.com/Benny66/ginServer/middleware"
 	"github.com/Benny66/ginServer/models"
+	"github.com/Benny66/ginServer/schemas"
 	"github.com/Benny66/ginServer/utils/function"
 	"github.com/Benny66/ginServer/utils/language"
 	"github.com/Benny66/ginServer/utils/log"
@@ -24,18 +24,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var UserService *userService
-
-func init() {
-	UserService = NewUserService()
+type UserInterface interface {
+	Login(req *schemas.UserLoginApiReq) (data interface{}, err IServiceError)
+	Refresh(req schemas.UserInfo) (data interface{}, err IServiceError)
+	UpdatePassword(req *schemas.UserUpdatePasswordApiReq, user schemas.UserInfo) (data interface{}, err IServiceError)
+	User(context *gin.Context) (user schemas.UserInfo)
 }
 
-func NewUserService() *userService {
-	return &userService{}
-}
+var UserService UserInterface = &userService{}
 
-type userService struct {
-}
+type userService struct{}
 
 func (svr *userService) Login(req *schemas.UserLoginApiReq) (data interface{}, err IServiceError) {
 
