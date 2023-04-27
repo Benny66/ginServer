@@ -10,20 +10,35 @@ cd testServer
 
 # 基于go-gin框架的web服务框架
 项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
-![项目框架结构](https://raw.githubusercontent.com/Benny66/ginServer/main/public/image/ginServerPath.png)
+
 ## app 
-项目工程主要代码文件夹目录，包括dao数据层、model模型层、service逻辑层；
+项目工程主要代码文件夹目录，包括api层、model模型数据层、service逻辑层；
 
-- 数据层是对数据操作的封装操作；
-- 模型层是对数据库表模型进行定义；
+- api层请求入口处理，参数校验，数据返回
+- model模型数据层是数据交互层，常见的数据库操作方法，数据聚合方法
 - 逻辑层是项目核心业务逻辑的处理层；
+### api层
+api层连同schema模块接受处理请求参数，做数据校验、清洗返回等
+```
+type UserInterface interface {
+	Login(context *gin.Context)
+	Refresh(context *gin.Context)
+	Logout(context *gin.Context)
+	UpdatePassword(context *gin.Context)
+}
 
-本项目框架各模块之间的调用使用，大部分采用单例模式中的饿汉模式，就是加载的时候全局初始化（缺点是启动占内存，慢）,不了解的可查看同目录下
+var UserApi UserInterface = &userApi{}
 
-[golang单例模式.md](./golang单例模式.md)
+type userApi struct{}
+```
 
-## dao【数据层】
-dao【数据层】是基于gorm对数据进行增删查改的模块
+## model【模型数据层】
+
+model就是对数据库表名和表内字段进行模型定义的模块。
+- ModelTime定义自动转换存储和查询时间格式
+- 可定义模型对应的表名称和表字段
+
+dao 是基于gorm对数据进行增删查改的模块，通过inteface接口暴露调用接口
 - Create和update 对数据的创建和修改操作均需要开启事务，在逻辑层进行控制开启、回滚和提交。
 - 常见封装的方法包括增删查改、分页查询（Paginate）、查询全部（FindAll）、按条件查询（WhereQuery）、关联查询（Joins）、预加载（Preloads）等等方法
 
@@ -47,20 +62,6 @@ func (dao *userDao) Joins(query string, args ...interface{}) *userDao {
 	}
 }
 ```
-## model【模型层】
-model【模型层】就是对数据库表名和表内字段进行模型定义的模块。
-- ModelTime定义自动转换存储和查询时间格式
-- 可定义模型对应的表名称和表字段
-
-```
-type User struct {
-	ID        uint      `gorm:"primaryKey;column:id" json:"id"`
-	UserName  string    `gorm:"column:username;unique;not null" json:"username"`
-	Password  string    `gorm:"column:password;not null" json:"password"`
-	CreatedAt ModelTime `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt ModelTime `gorm:"column:updated_at" json:"updated_at"`
-}
-```
 ## service【逻辑层】
 service【逻辑层】是主要的代码层，开发人员基本上在这个模块上进行开发和修复bug，实现各自项目的逻辑，是最核心的内容
 - api模块是对接路由的方法入口，基本上一个业务模块对应一个文件，例如登录模块的各接口可以命名为user.go
@@ -72,7 +73,7 @@ service【逻辑层】是主要的代码层，开发人员基本上在这个模�
 系统的配置模块，config.go，包括服务信息、数据库信息、日志配置信息、ws配置信息等等
 
 ## db【数据库】
-数据库文件夹模块，目前使用的是轻量级的sqlite数据库，后续兼容多个数据库
+数据库文件夹模块，目前使用的mysql、redis数据存储
 
 ## migrations【数据迁移】
 数据迁移文件模块，项目初始化或升级的时候可进行数据库的数据库迁移脚本命令；
@@ -91,4 +92,3 @@ runtime模块，保存日志logs、缓存cache等文件
 ## utils
 项目框架需要的工具包，包括：自我封装的库以及调用第三方封装的库
 
-## pprof
