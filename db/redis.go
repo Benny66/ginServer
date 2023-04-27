@@ -6,7 +6,7 @@ import (
 
 	"github.com/Benny66/ginServer/config"
 
-	log2 "github.com/Benny66/ginServer/utils/log"
+	log2 "github.com/Benny66/ginServer/log"
 
 	redis "github.com/go-redis/redis/v8"
 )

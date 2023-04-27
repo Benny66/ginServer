@@ -13,12 +13,12 @@ import (
 	"time"
 
 	database "github.com/Benny66/ginServer/db"
+	"github.com/Benny66/ginServer/log"
 	"github.com/Benny66/ginServer/middleware"
 	"github.com/Benny66/ginServer/models"
 	"github.com/Benny66/ginServer/schemas"
 	"github.com/Benny66/ginServer/utils/function"
 	"github.com/Benny66/ginServer/utils/language"
-	"github.com/Benny66/ginServer/utils/log"
 
 	jwt2 "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -36,7 +36,6 @@ var UserService UserInterface = &userService{}
 type userService struct{}
 
 func (svr *userService) Login(req *schemas.UserLoginApiReq) (data interface{}, err IServiceError) {
-
 	if req.UserName == "" {
 		err = NewServiceError(language.USER_NAME_EMPTY)
 		return

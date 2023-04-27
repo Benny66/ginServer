@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Benny66/ginServer/utils/log"
+	"github.com/Benny66/ginServer/log"
 
 	"github.com/gorilla/websocket"
 )

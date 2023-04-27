@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Benny66/ginServer/utils/function"
+	"github.com/Benny66/ginServer/log"
 	"github.com/Benny66/ginServer/utils/language"
-	"github.com/Benny66/ginServer/utils/log"
 
 	"github.com/gorilla/websocket"
 )
@@ -78,8 +77,11 @@ func (manager *Manager) Start() {
 				if data.IsBroadCast {
 					conn.Message <- data.Message
 				} else {
-					if function.InSliceStr(conn.Id, data.ClientIDs) {
-						conn.Message <- data.Message
+					for _, element := range data.ClientIDs {
+						if element == conn.Id {
+							conn.Message <- data.Message
+							break
+						}
 					}
 				}
 

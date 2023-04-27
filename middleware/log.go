@@ -2,9 +2,10 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/Benny66/ginServer/utils/log"
 	"os"
 	"time"
+
+	"github.com/Benny66/ginServer/log"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,14 +1,5 @@
 package database
 
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-07 09:20:21
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-23 15:17:36
- */
-
 import (
 	"database/sql"
 	"fmt"
@@ -16,7 +7,6 @@ import (
 	"time"
 
 	"github.com/Benny66/ginServer/config"
-	log2 "github.com/Benny66/ginServer/utils/log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -54,7 +44,6 @@ func (db *orm) loadDBConfig() {
 		dbUser, dbPassword, dbHost, dbPort, dbName,
 	)), &gorm.Config{})
 	if err != nil {
-		log2.SystemLog(err)
 		log.Fatal("open database error: " + err.Error())
 	}
 	sqlDB, _ := db.engine.DB()

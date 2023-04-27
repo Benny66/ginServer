@@ -3,8 +3,8 @@ package api
 import (
 	"fmt"
 
+	"github.com/Benny66/ginServer/log"
 	"github.com/Benny66/ginServer/utils/format"
-	"github.com/Benny66/ginServer/utils/log"
 	myRedis "github.com/Benny66/ginServer/utils/redis"
 
 	"github.com/gin-gonic/gin"

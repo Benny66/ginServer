@@ -1,12 +1,5 @@
-package function /*
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-08 16:09:43
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-20 15:48:15
-*/
+package function 
+
 
 import (
 	"bytes"

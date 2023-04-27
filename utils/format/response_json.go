@@ -1,16 +1,8 @@
-/*
-* FileName: responseJson.go
-* Author: shahao
-* CreatedOn: 2019-11-19 13:55
-* Description:
- */
 package format
 
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/Benny66/ginServer/utils/language"
 
 	"github.com/gin-gonic/gin"
 )
@@ -48,8 +40,8 @@ func (r *responseJson) SetHeader(key, value string) *responseJson {
  */
 func (r *responseJson) Success(data interface{}) {
 	r.context.JSON(http.StatusOK, ResultData{
-		Code: language.SUCCESS,
-		Msg:  language.Lang.Msg(language.SUCCESS),
+		Code: 0,
+		Msg:  "success",
 		Data: data,
 	})
 }
@@ -65,7 +57,7 @@ func (r *responseJson) Success(data interface{}) {
 func (r *responseJson) Error(errorCode int, params ...interface{}) {
 	result := ResultData{
 		Code: errorCode,
-		Msg:  language.Lang.Msg(errorCode, params...),
+		Msg:  fmt.Sprintf("error", params...),
 		Data: "",
 	}
 	r.context.Abort()

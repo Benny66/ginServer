@@ -1,24 +1,13 @@
 package routers
 
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-14 09:56:53
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-26 11:43:58
- */
-
 import (
 	"net/http"
 
-	"github.com/Benny66/ginServer/api"
 	"github.com/Benny66/ginServer/config"
+	"github.com/Benny66/ginServer/log"
 	"github.com/Benny66/ginServer/middleware"
 	"github.com/Benny66/ginServer/utils/format"
-	"github.com/Benny66/ginServer/utils/function"
 	"github.com/Benny66/ginServer/utils/language"
-	"github.com/Benny66/ginServer/utils/websocket"
 
 	"github.com/gin-contrib/pprof"
 
@@ -39,6 +28,8 @@ type router struct{}
 
 func (router *router) Init() *gin.Engine {
 	r := gin.New()
+	//初始化日志
+	log.Init(config.Config.Mode, config.Config.LogExpire)
 	gin.SetMode(config.Config.Mode)
 	if gin.IsDebugging() {
 		pprof.Register(r, "/debug/pprof")
@@ -46,16 +37,11 @@ func (router *router) Init() *gin.Engine {
 	r.Use(middleware.LoggerMiddleware())
 	r.Use(middleware.Recover())
 	r.Use(middleware.CrossMiddleware())
-	go websocket.WebsocketManager.Start()
-	r.GET("/ws", api.WsApi.WsClient)
 
 	r.NoRoute(routeNotFound)
 	r.NoMethod(methodNotFound)
-	r.StaticFS("/public", http.Dir(function.GetAbsPath("public")))
-	// if gin.IsDebugging() {
-	// 	r.GET("/docs/web/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/web_doc/swagger.json")))
-	// 	r.GET("/docs/client/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("/public/client_doc/swagger.json")))
-	// }
+	r.StaticFS("/public", http.Dir("public"))
+
 	routerV1(r.Group("/api"))
 	return r
 }

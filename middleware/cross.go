@@ -1,13 +1,5 @@
 package middleware
 
-/*
- * @Descripttion:
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-04-14 09:56:54
- * @LastEditors: shahao
- * @LastEditTime: 2021-06-07 08:59:18
- */
 
 import (
 	"strings"

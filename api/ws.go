@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Benny66/ginServer/log"
 	"github.com/Benny66/ginServer/utils/format"
-	"github.com/Benny66/ginServer/utils/log"
 	ws "github.com/Benny66/ginServer/utils/websocket"
 
 	"github.com/gin-gonic/gin"
