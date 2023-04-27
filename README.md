@@ -1,11 +1,12 @@
-<!--
- * @Descripttion: 
- * @version: v1.0.0
- * @Author: shahao
- * @Date: 2021-07-23 14:57:19
- * @LastEditors: shahao
- * @LastEditTime: 2021-07-26 12:20:46
--->
+# gingen
+
+自动生成框架内容可前往开源项目[gingen](https://github.com/Benny66/gingen.git)按如下命令执行
+
+```
+mkdir testServer
+cd testServer
+./gingen init --mod testServer
+```
 
 # 基于go-gin框架的web服务框架
 项目地址：[https://github.com/Benny66/ginServer](https://github.com/Benny66/ginServer)
