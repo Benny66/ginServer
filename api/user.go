@@ -18,6 +18,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type UserInterface interface {
+	Login(context *gin.Context)
+	Refresh(context *gin.Context)
+	Logout(context *gin.Context)
+	UpdatePassword(context *gin.Context)
+}
+
+var UserApi UserInterface = &userApi{}
+
+type userApi struct{}
+
 // @Summary 登录
 // @Description 登录
 // @Tags 用户

@@ -22,6 +22,14 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
+type WsInterface interface {
+	WsClient(context *gin.Context)
+}
+
+var WsApi WsInterface = &wsApi{}
+
+type wsApi struct{}
+
 // 客户端连接
 func (api *wsApi) WsClient(context *gin.Context) {
 	upGrande := websocket.Upgrader{
