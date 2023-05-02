@@ -61,7 +61,7 @@ func (r *responseJson) Error(errorCode int, params ...interface{}) {
 		Data: "",
 	}
 	r.context.Abort()
-	r.context.JSON(http.StatusOK, result)
+	r.context.JSON(http.StatusInternalServerError, result)
 }
 
 /*

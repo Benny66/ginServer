@@ -4,14 +4,11 @@ go 1.18
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.5.1
-	github.com/kardianos/service v1.2.2
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/satori/go.uuid v1.2.0
 	golang.org/x/text v0.9.0
 	gorm.io/driver/mysql v1.5.0
 	gorm.io/gorm v1.25.0

@@ -32,7 +32,6 @@ func (db *orm) loadDBConfig() {
 	if db.engine != nil {
 		return
 	}
-
 	var err error
 	dbName := config.Config.DBName
 	dbUser := config.Config.DBUsername

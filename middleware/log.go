@@ -6,11 +6,22 @@ import (
 	"time"
 
 	"github.com/Benny66/ginServer/log"
+	"github.com/Benny66/ginServer/routers"
 
 	"github.com/gin-gonic/gin"
 )
 
-func LoggerMiddleware() gin.HandlerFunc {
+func init() {
+	routers.R.AddMiddlewareSchema(&logger{})
+}
+
+type logger struct{}
+
+func (m *logger) Name() string {
+	return "logger"
+}
+
+func (m *logger) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Start timer
 		start := time.Now()

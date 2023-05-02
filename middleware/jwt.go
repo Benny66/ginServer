@@ -5,16 +5,26 @@ import (
 	"fmt"
 
 	"github.com/Benny66/ginServer/config"
+	"github.com/Benny66/ginServer/routers"
 	"github.com/Benny66/ginServer/schemas"
 	"github.com/Benny66/ginServer/utils/format"
 	"github.com/Benny66/ginServer/utils/language"
+	"github.com/dgrijalva/jwt-go"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
-func JWTMiddleware() gin.HandlerFunc {
+func init() {
+	routers.R.AddMiddlewareSchema(&Jwt{})
+}
+
+type Jwt struct{}
+
+func (m *Jwt) Name() string {
+	return "jwt"
+}
+
+func (m *Jwt) Handler() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		token := context.GetHeader("Authorization")
 		if token == "" {

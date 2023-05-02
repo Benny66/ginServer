@@ -1,13 +1,22 @@
 package middleware
 
-
 import (
 	"strings"
 
+	"github.com/Benny66/ginServer/routers"
 	"github.com/gin-gonic/gin"
 )
 
-func CrossMiddleware() gin.HandlerFunc {
+func init() {
+	routers.R.AddMiddlewareSchema(&cross{})
+}
+
+type cross struct{}
+
+func (m *cross) Name() string {
+	return "cross"
+}
+func (m *cross) Handler() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		if !strings.HasPrefix(context.Request.URL.Path, "/docs") {
 			context.Header("Access-Control-Allow-Origin", "*")
